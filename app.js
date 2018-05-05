@@ -3,6 +3,9 @@ const app = express();
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const Campground = require("./models/campground");
+const seedDB = require("./seeds");
+
+seedDB();
 
 mongoose.connect("mongodb://localhost/yelp_camp_v3");
 
@@ -10,16 +13,6 @@ app.set("view engine", "ejs");
 
 app.use(express.static("public"));
 app.use(bodyParser.urlencoded({extended: true}));
-
-
-// salmonCreek.save((err, campground) => {
-//     if(err)
-//         console.log(err);
-//     else
-//         console.log(campground);
-// });
-
-
 
 app.get("/", (req, res) => {
     res.render("landing");
@@ -49,6 +42,16 @@ app.get("/campgrounds/new", (req, res) => {
     res.render("new");
 });
 
+// SHOW - shows more info about a campground
+app.get("/campgrounds/:id", (req, res) => {
+    Campground.findById(req.params.id).populate("comments").exec((err, foundCampground) => {
+        if(err || foundCampground == null){
+            res.send(err);
+        } else {
+            res.render("show", {campground: foundCampground});
+        }
+    });
+});
 
 app.listen(3000, () => {
     console.log(`YelpCamp Started!`);
