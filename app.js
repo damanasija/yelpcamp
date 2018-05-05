@@ -5,9 +5,8 @@ const mongoose = require("mongoose");
 const Campground = require("./models/campground");
 const seedDB = require("./seeds");
 
-seedDB();
-
 mongoose.connect("mongodb://localhost/yelp_camp_v3");
+seedDB();
 
 app.set("view engine", "ejs");
 
