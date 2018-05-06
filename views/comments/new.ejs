@@ -1,0 +1,21 @@
+<% include ../partials/header %>
+    <div class="container">
+        <div class="row">
+            <h1 style="text-align: center">Add New Comment to <%= campground.name %></h1>
+            <div style="width: 30%; margin: 25px auto">
+                <form action="/campgrounds/<%= campground._id %>/comments" class="form-horizontal" method="post">
+                    <div class="form-group">
+                        <input type="text" class="form-control" name="comment[text]" id="newCampground" placeholder="Text">
+                    </div>
+                    <div class="form-group">
+                        <input type="text" class="form-control" name="comment[author]" id="imageUrl" placeholder="Author">
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" value="Submit" class="btn btn-lg btn-success btn-block">
+                    </div>
+                </form>
+                <a href="/campgrounds">Go Back</a>
+            </div>
+        </div>
+    </div>
+<% include ../partials/footer.ejs %>
